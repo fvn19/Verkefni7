@@ -23,11 +23,11 @@ const games = [];
  * Ef notandi ýtir á "cancel" þá er sótt niðurstöður með getResults() og þær birtar með alert().
  */
 function start() {
-  alert("Þessi leikur snýst um að giska á tölu sem er á milli 0 og 100.");
+  alert(`Þessi leikur snýst um að giska á tölu sem er á milli 0 og 100.`);
   do {
     play();
   }
-  while (confirm("Viltu spila annann leik?"));
+  while (confirm(`Viltu spila annann leik?`));
 }
 
 /**
@@ -51,8 +51,9 @@ function play() {
   let numberOfQuestion = 0;
   let numberOfCorrectAnswer = 0;
 
-
-  const answer = getResponse();
+  for (let i = 0; i < 5; i++) {
+    const answer = getResponse();
+  }
   if (answer === null) {
     return;
   } else if (answer === true) {
@@ -73,7 +74,7 @@ function play() {
  *    "Þú spilaðir engann leik >_<"
  */
 function getResults() {
-  console.log("þú spilaðir " + list + " leiki    Meðalfjöldi ágiskana var " + calculateAverage());
+  console.log(`þú spilaðir ` + list + ` leiki    Meðalfjöldi ágiskana var ` + calculateAverage());
 }
 
 /**
@@ -95,7 +96,7 @@ function calculateAverage() {
  * Ef ekki er hægt að ná tölu úr input er skilað null
  */
 function parseGuess() {
-  const input = prompt("Giskaðu á tölu sem er á milli 0 og 100");
+  const input = prompt(`Giskaðu á tölu sem er á milli 0 og 100`);
   if (input === isNaN) {
     return null;
   }
@@ -119,24 +120,24 @@ function parseGuess() {
  */
 function getResponse() {
 
-  const correct = (randomNumber(1, 100));
-  const guess = (parseGuess());
+  const correct = parseInt(randomNumber(1, 100));
+  const guess = parseInt(parseGuess());
   const parsedDifference = parseInt(Math.abs(correct - guess));
   for (let i = 0; i < 100; i++) {
     if (guess < 0 || isNaN(guess)) {
-      return "Ekki rétt";
+      return `Ekki rétt`;
     } else if (guess === correct) {
       return true;
     } else if (parsedDifference < 5) {
-      return alert("Mjög nálægt");
+      return alert(`Mjög nálægt`);
     } else if (parsedDifference < 10) {
-      return alert("Nálægt");
+      return alert(`Nálægt`);
     } else if (parsedDifference < 20) {
-      return alert("Frekar langt frá");
+      return alert(`Frekar langt frá`);
     } else if (parsedDifference < 50) {
-      return alert("Langt frá");
+      return alert(`Langt frá`);
     } else
-      return alert("Mjög langt frá");
+      return alert(`Mjög langt frá`);
   }
 }
 
