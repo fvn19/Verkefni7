@@ -51,17 +51,20 @@ function play() {
   let numberOfQuestion = 0;
   let numberOfCorrectAnswer = 0;
 
-  for (let i = 0; i < 5; i++) {
-    const answer = getResponse();
-  }
-  if (answer === null) {
-    return;
-  } else if (answer === true) {
-    numberOfCorrectAnswer++;
-  }
 
-  debugger;
-  alert(getResults());
+  for (let i = 0; i < 5; i++) {
+    let answer = getResponse();
+
+    if (answer === null) {
+      return;
+    } else if (answer === true) {
+      numberOfCorrectAnswer++;
+      return games[numberOfCorrectAnswer];
+    }
+
+    debugger;
+    alert(getResults());
+  }
 }
 
 /**
@@ -74,7 +77,7 @@ function play() {
  *    "Þú spilaðir engann leik >_<"
  */
 function getResults() {
-  console.log(`þú spilaðir ` + list + ` leiki    Meðalfjöldi ágiskana var ` + calculateAverage());
+  console.log(`þú spilaðir ` + sum(games(...list)) + ` leiki ` + "< br>" + `Meðalfjöldi ágiskana var ` + calculateAverage());
 }
 
 /**
@@ -86,7 +89,7 @@ function getResults() {
  * þarf að útfæra með lykkju.
  */
 function calculateAverage() {
-  let average = parseDouble(sum(games(...list) / list));
+  let average = parseDouble(sum(games(...list) / games.length));
   return average;
 
 }
@@ -125,17 +128,22 @@ function getResponse() {
   const parsedDifference = parseInt(Math.abs(correct - guess));
   for (let i = 0; i < 100; i++) {
     if (guess < 0 || isNaN(guess)) {
-      return `Ekki rétt`;
+      alert(`Ekki rétt`);
+      return null;
     } else if (guess === correct) {
       return true;
     } else if (parsedDifference < 5) {
-      return alert(`Mjög nálægt`);
+      alert(`Mjög nálægt`);
+      return guess;
     } else if (parsedDifference < 10) {
-      return alert(`Nálægt`);
+      alert(`Nálægt`);
+      return guess;
     } else if (parsedDifference < 20) {
-      return alert(`Frekar langt frá`);
+      alert(`Frekar langt frá`);
+      return guess;
     } else if (parsedDifference < 50) {
-      return alert(`Langt frá`);
+      alert(`Langt frá`);
+      return guess;
     } else
       return alert(`Mjög langt frá`);
   }
